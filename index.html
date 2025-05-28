@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LendU - Student Lending Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      background: #f5faff;
+      color: #222;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: linear-gradient(90deg, #00274d, #007acc);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      animation: slideRight 1s ease-in-out;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    nav a:hover {
+      color: #e0f7ff;
+    }
+    section {
+      padding: 4rem 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section:nth-child(even) {
+      background: #e6f0fa;
+    }
+    .hero {
+      text-align: center;
+      position: relative;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .hero img {
+      max-width: 300px;
+      margin-top: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .btn {
+      background: #007acc;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .btn:hover {
+      background: #005f99;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.1rem;
+    }
+    li svg {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      fill: #007acc;
+    }
+    #about {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      text-align: left;
+    }
+    #about img {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #00274d;
+      color: #fff;
+      font-size: 0.95rem;
+      user-select: none;
+    }
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #007acc;
+      margin-top: 1rem;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      color: #00274d;
+    }
+    .stars {
+      color: gold;
+      font-size: 1.3rem;
+      display: inline-flex;
+      gap: 2px;
+      user-select: none;
+    }
+    #testimonials ul {
+      padding-left: 0;
+      list-style: none;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .testimonial-author {
+  font-style: italic;
+  margin-top: 6px;
+  color: #555;
+  font-weight: 600;
+}
+
+    #testimonials li {
+      background: #e6f0fa;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      font-size: 1.1rem;
+    }
+    .rating-stars {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    @keyframes slideRight {
+      from {
+        transform: translateX(-100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .stats {
+        flex-direction: column;
+        align-items: center;
+      }
+      #about {
+        flex-direction: column;
+        text-align: center;
+      }
+      #about img {
+        margin-bottom: 1.5rem;
+      }
+      li {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Lend<span style="color:#00d4ff;">U</span></div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it Works</a>
+      <a href="#ai">AI Risk Score</a>
+      <a href="#stats">Stats</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to LendU</h1>
+    <p>A modern peer-to-peer lending platform for university students in Rwanda. We empower students to responsibly lend and borrow small loans within their university community with ease and security.</p>
+    <a href="register.html"><button class="btn">Get Started</button></a>
+    <img src="https://www.scnsoft.com/banking/p2p-lending/p2p-lending-software-cover.svg" alt="Student Lending Illustration" />
+  </section>
+
+  <section id="about">
+    <img src="https://img.freepik.com/premium-vector/group-students-huddled-together-corner-discussing-merits-various-student-loans_216520-72517.jpg?w=360" alt="About LendU Illustration" />
+    <div>
+      <h2>About LendU</h2>
+      <p>
+        LendU is a student-focused peer-to-peer lending platform designed to connect borrowers and lenders within university communities across Rwanda.  
+        Our platform offers secure loan management, transparent AI-driven risk assessment, and digital contract generation — helping students access funds quickly while maintaining trust and accountability.
+      </p>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>Key Features</h2>
+    <ul>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h18v2H3zM3 7h12v2H3zM3 12h18v2H3z"/></svg>
+        Track your loan status
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a2 2 0 0 0 2-2v-2a2 2 0 0 0-4 0v2a2 2 0 0 0 2 2zm6-8h-1V6a5 5 0 0 0-10 0v3H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"/></svg>
+        Secure login and identity verification
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17h4v2h-4zM7 7h10v2H7z"/></svg>
+        AI-based risk score to protect lenders
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3H5a2 2 0 0 0-2 2v14l4-4h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/></svg>
+        Easy-to-read loan contracts and receipts
+      </li>
+    </ul>
+  </section>
+
+  <section id="how">
+    <h2>How it Works</h2>
+    <ul>
+      <li>Register and verify your student identity.</li>
+      <li>Browse loan requests or create a loan offer.</li>
+      <li>Check AI risk scores and borrower profiles.</li>
+      <li>Agree on terms and sign digital contracts.</li>
+      <li>Track loan repayment and receive notifications.</li>
+    </ul>
+  </section>
+  <section id="ai">
+  <h2>AI Risk Score Estimator</h2>
+  <p>Our AI model evaluates a borrower's trustworthiness based on academic performance and past behavior. Try the demo below:</p>
+
+  <form id="riskForm" style="max-width: 500px; margin: 2rem auto; background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <label for="gpa">Academic GPA (0.0 - 4.0):</label><br>
+    <input type="number" id="gpa" name="gpa" step="0.1" min="0" max="4" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+    <label for="repayment">Previous Loan Repayment Score (0 - 100):</label><br>
+    <input type="number" id="repayment" name="repayment" min="0" max="100" required style="width: 100%; padding: 8px; margin: 10px 0;"><br>
+
+    <button type="submit" class="btn">Calculate Risk Score</button>
+  </form>
+
+  <div id="result" style="text-align: center; font-size: 1.3rem; margin-top: 1.5rem;"></div>
+
+  <script>
+    document.getElementById('riskForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const gpa = parseFloat(document.getElementById('gpa').value);
+      const repayment = parseInt(document.getElementById('repayment').value);
+
+      // Sample scoring logic (this simulates an AI prediction)
+      const normalizedGPA = gpa / 4;
+      const normalizedRepayment = repayment / 100;
+      const score = ((normalizedGPA * 0.6) + (normalizedRepayment * 0.4)) * 100;
+
+      let rating = '';
+      if (score >= 80) {
+        rating = 'Low Risk (Excellent)';
+      } else if (score >= 60) {
+        rating = 'Moderate Risk';
+      } else {
+        rating = 'High Risk (Caution)';
+      }
+
+      document.getElementById('result').innerHTML =
+        `<p>Estimated AI Risk Score: <strong>${Math.round(score)}</strong>/100<br><em>${rating}</em></p>`;
+    });
+  </script>
+</section>
+
+  <section id="stats">
+    <h2>Live Stats</h2>
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number">500+</div>
+        <div>Registered Students</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">250+</div>
+        <div>Loans Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">95%</div>
+        <div>Repayment Rate</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stats">
+    <h2>Platform Statistics</h2>
+    <div class="stats">
+      <div class="stat-item">
+        <div class="stat-number" data-target="1278">0</div>
+        <div>Active Users</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="8500000">0</div>
+        <div>RWF Lent</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="98">0</div>
+        <div>% On-time Repayments</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+  <h2>What Our Users Say</h2>
+  <ul>
+    <li>
+      "LendU helped me get a small loan to cover my books. The process was smooth and trustworthy." 
+      <div class="testimonial-author">—  Elvis</div>
+      <div class="rating-stars" aria-label="5 stars">★★★★★</div>
+    </li>
+    <li>
+      "As a lender, the AI risk score gave me confidence to lend without worry." 
+      <div class="testimonial-author">— Amina </div>
+      <div class="rating-stars" aria-label="4 stars">★★★★☆</div>
+    </li>
+    <li>
+      "The digital contracts made everything clear and professional. Highly recommend LendU!" 
+      <div class="testimonial-author">— Jean-Pierre </div>
+      <div class="rating-stars" aria-label="5 stars">★★★★★</div>
+    </li>
+  </ul>
+</section>
+
+
+  <footer>
+    &copy; 2025 LendU. All rights reserved.
+  </footer>
+
+  <script>
+    // Animate numbers on scroll
+    function animateNumber(el, target) {
+      let current = 0;
+      const increment = target / 100;
+      const interval = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          el.textContent = target.toLocaleString();
+          clearInterval(interval);
+        } else {
+          el.textContent = Math.floor(current).toLocaleString();
+        }
+      }, 20);
+    }
+
+    // Reveal sections on scroll & animate stats numbers
+    const sections = document.querySelectorAll('section');
+    const statNumbers = document.querySelectorAll('.stat-number');
+
+    function revealOnScroll() {
+      const triggerBottom = window.innerHeight * 0.9;
+      sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top < triggerBottom) {
+          section.classList.add('visible');
+          if (section.id === 'stats') {
+            statNumbers.forEach(el => {
+              if (!el.dataset.animated) {
+                animateNumber(el, +el.dataset.target);
+                el.dataset.animated = true;
+              }
+            });
+          }
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+
+</body>
+</html>
